@@ -6,8 +6,27 @@
   - `npm run test-palindrome`
 */
 
+function removePunctuation(text) {
+  let punctuation = /[\.,?!]/g;
+  let newText = text.replace(punctuation, "");
+  newText = newText.toLowerCase().trim().replaceAll(" ", "");
+  return newText;
+}
 function isPalindrome(str) {
-  return true;
+  // cleaning string, removing spaces, etc
+  let strReceived = removePunctuation(str);
+  //CReating reversed string array
+  let strReverse = [];
+  // loop forpushing elements from right to left
+  for (let i = str.length - 1; i >= 0; i--) {
+    strReverse.push(strReceived[i]);
+  }
+  // converting array to string
+  let reversedStr = strReverse.join("").toString();
+  // checking with received str
+  if (reversedStr === strReceived) {
+    return true;
+  } else return false;
 }
 
 module.exports = isPalindrome;
