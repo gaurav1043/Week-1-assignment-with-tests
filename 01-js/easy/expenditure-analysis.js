@@ -7,41 +7,30 @@
   Once you've implemented the logic, test your code by running
   - `npm run test-expenditure-analysis`
 */
-function searchKey(categoryName, arr) {
-  for (let i = 0; i <= arr.length; i++) {
-    if (arr[i].category === categoryName) {
-      // console.log(i);
-      return i;
-    }
-  }
-}
 
 function calculateTotalSpentByCategory(transactions) {
-  //array for category
-  let eachCategory = [];
   // Final array of objects
-  let result = [];
-
+  let result = new Map(); // map algorithm
   //looping through each object in array
   transactions.forEach((transaction) => {
     //checking for repeating category & pushing if not there already
-    if (!eachCategory.includes(transaction.category)) {
-      eachCategory.push(transaction.category);
+    if (!result.has(transaction.category)) {
+      result.set(transaction.category, transaction.price);
       //creating new object of a single category
-      let newObject = {};
-      newObject.category = transaction.category;
-      newObject.totalSpent = transaction.price;
-      result.push(newObject);
     } else {
       // if category already exist
-      // function for searching index of the category
-      let index = searchKey(transaction.category, result);
-      // Adding new price to current total price
-      let oldPrice = result[index].totalSpent;
-      result[index].totalSpent = oldPrice + transaction.price;
+      let oldPrice = result.get(transaction.category);
+      let newTotal = oldPrice + transaction.price;
+      result.set(transaction.category, newTotal);
     }
   });
-  return result;
+  let returnArray = [];
+  result.forEach((value, key) => {
+    let obj = { category: key, totalSpent: value };
+    returnArray.push(obj);
+  });
+
+  return returnArray;
 }
 
 module.exports = calculateTotalSpentByCategory;
