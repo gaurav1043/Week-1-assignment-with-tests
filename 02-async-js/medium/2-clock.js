@@ -8,7 +8,7 @@
 //  - HH:MM::SS AM/PM (Eg 01:45:23 PM)
 
 function addZero(i) {
-  // function to ad zero to a single digit
+  // function to ad zero to a single digit number
   if (i < 10) {
     i = "0" + i;
   }
@@ -24,7 +24,7 @@ const printTime = () => {
   let ampm = h <= 12 ? "AM" : "PM"; // for am pm
 
   if (h > 12) {
-    //12 hour format
+    // for 12 hour format
     h = h - 12;
   }
   let m = addZero(d.getMinutes()); // for minutes
